@@ -1,6 +1,6 @@
 library('fda.usc')
 setwd("~/MATLAB-Drive/PaperCSB/Repositorio/FunctionalIntervals")
-Estimations <- read.csv(file = 'DengueEstimations.csv')
+Estimations <- read.csv(file = 'COVIDEstimations.csv')
 fdaEst = fdata(Estimations, argvals = NULL, rangeval = NULL, names = NULL, fdata2d = FALSE)
 
 out.boot=fdata.bootstrap(fdaEst,statistic=func.med.FM,nb=1000,alpha=0.05,draw=TRUE)
@@ -18,15 +18,15 @@ for (q in 1:length(my_packages)) {
 ## Carga de datos
 #data(Octanespectrum)
 setwd("~/MATLAB-Drive/PaperCSB/Repositorio/FunctionalIntervals")
-Estimations <- read.csv(file = 'DengueEstimations.csv', header = FALSE)
+Estimations <- read.csv(file = 'COVIDEstimations.csv', header = FALSE)
 ## Computo de observación más profunda e IQR funcional
-wdbc.b.z =matrix(unlist(Estimations),ncol =13, nrow =1000)
+wdbc.b.z =matrix(unlist(Estimations),ncol =16, nrow =1000)
 #wdbc.b.z = scale(wdbc.b.z)
 fda.wdbc = depthTools::MBD(wdbc.b.z, band = T, plotting = F)
 p.fda.wdbc = fda.wdbc$ordering[1:ceiling(0.5*nrow(wdbc.b.z))]
 p2.fda.wdbc = fda.wdbc$MBD[p.fda.wdbc]
 #d50.wdbc.b.z = wdbc.b.z[p.fda.wdbc,]
-d50.wdbc.b.z =matrix(unlist(out.boot$resample$data),ncol =13, nrow =1000)
+d50.wdbc.b.z =matrix(unlist(out.boot$resample$data),ncol =16, nrow =1000)
 max.d50.wdbc.b.z = apply(d50.wdbc.b.z, 2, max)
 min.d50.wdbc.b.z = apply(d50.wdbc.b.z, 2, min)
 # Método minimum diagonal product estimator
@@ -91,4 +91,4 @@ legend("topright", inset = c(-0.22, 0),
 
 
 DataSave = cbind(wdbc.b.z[p.fda.wdbc[1],],min.d50.wdbc.b.z,max.d50.wdbc.b.z)
-write.csv(DataSave, "DengueIntervals.csv", row.names = FALSE)
+write.csv(DataSave, "COVIDIntervals.csv", row.names = FALSE)
