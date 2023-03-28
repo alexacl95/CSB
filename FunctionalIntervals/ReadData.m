@@ -12,6 +12,5 @@ csvwrite('DengueEstimations.csv', EstimatedParams(1:1100,:))
 
 %% COVID-19 estimationsclear
 
-
-load("COVID19/Results/Estimations/Estimations_AmazonasComplex1.mat")
-csvwrite('FunctionalIntervals/COVIDEstimations.csv', EstimatedParams)
+load("COVID19/Results/Estimations/Estimations_Amazonas.mat")
+csvwrite('COVIDEstimations.csv', EstimatedParams)
